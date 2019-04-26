@@ -3,11 +3,15 @@
 #include<conio.h> 
 #include<string.h>
 #include<unistd.h> 
+#include "book.h"
+#include "account.h"
+#include "borrowreturn.h"
+#include "menu.h"
 
 book loadbook(){
 	FILE *fp;
 	int n=0;
-	book *head,*p,*p1;
+	book *head,*p,*p1=NULL;
 	fp=fopen("book","ab+");
 	if(fp==NULL){
 		printf("loading is failed");
@@ -48,9 +52,8 @@ void addbook(){
 		printf("Input publisher of book\n");
 		scanf("%s",&p->publisher);
 		getchar();
-		printf("Input the quantity of book\n");
-		scanf("%d",&p->quantity);
-		getchar();
+		char l='available';
+		char f='null';
 		printf("saving...\n");
 		savebook(p)
 		printf("successed\n");
@@ -84,7 +87,7 @@ void findbook(){
 	while(p!=NULL){
 		if(p!=NULL&&(strcmp(p->number,info)==0||strcmp(p->name,info)==0||strcmp(p->author,info)==0||strcmp(p->publisher,info)==0)){
 			f=1;
-			printf("Number:%s Name:%s Author:%s Publisher:%s Quantity:%d Left:%d \n",p->number,p->name,p->author,p->publisher,p->quantity,p->quantity-p->l);
+			printf("Number:%s Name:%s Author:%s Publisher:%s Status:%s Borrower:%s \n",p->number,p->name,p->author,p->publisher,p->l,p->f);
 			printf("Is this book that you want?\n");
 			printf("Press 1 to confirm | Press 2 to continue\n");
 			while(1){
@@ -216,13 +219,8 @@ void printbook(){
 	}
 	p=head;
 	while(p!=NULL){
-		printf("Number:%s Name:%s Author:%s Publisher:%s Quantity:%d Left:%d \n",p->number,p->name,p->author,p->publisher,p->quantity,p->quantity-p->l);
-		sum=sum+p->quantity;
-		h=borrowinfo();
-		while(h!=NULL){
-			printf("Borrower: User: %s \n",h->usr);
-			h=h->next;
-		}
+		printf("Number:%s Name:%s Author:%s Publisher:%s Status:%s Borrower:%s \n",p->number,p->name,p->author,p->publisher,p->l,p->f);
+		sum=sum+1;
 		printf("\n");
 	}
 	printf(" The total number of books is %d \n",sum);
