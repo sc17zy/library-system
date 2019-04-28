@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h> 
+#include<conio.h>
 #include<string.h>
 #include<unistd.h> 
 #include "book.h"
@@ -8,11 +8,12 @@
 #include "borrowreturn.h"
 #include "menu.h"
 
-account loadaccount(){
+account *loadaccount(){
 	FILE *fp;
 	int n=0;
-	account *head,*p,*p1;
-	fp=fopen("account","ab+");
+	account *head=NULL;
+	account *p,*p1;
+	fp=fopen("account.txt","ab+");
 	if(fp==NULL){
 		printf("loading is failed\n");
 	}
@@ -36,13 +37,13 @@ account loadaccount(){
 
 void regist(){
 	system("cls");
-	char pa,pa1;
+	char pa[10],pa1[10];
 	char i;
 	account *p,*p1;
 	p=(account*)malloc(sizeof(account));
 	while(1){
 		printf("Please enter your username.\n");
-		scanf("%s",%p->usrname);
+		scanf("%s",&p->usrname);
 		getchar();
 		printf("Please enter your password.\n");
 		scanf("%s",&pa);
@@ -51,10 +52,10 @@ void regist(){
 		scanf("%s",&pa1);
 		getchar();
 		if(strcmp(pa,pa1)==0){
-			p->password=pa;
+			strcpy(p->password,pa);
 			printf("In processing...\n");
-			sleep(2);
-			*p1=loadaccount();
+			Sleep(2000);
+			p1=loadaccount();
 			while(p1!=NULL){
 				if(strcmp(p->usrname,p1->usrname)==0){
 					printf("A same user was existed.");
@@ -81,7 +82,7 @@ void regist(){
 					menu();
 				}
 				else{
-					printf("Invalid. Please press "1" or "2"\n");
+					printf("Invalid. Please press 1 or 2\n");
 				}
 			}
 		}
@@ -89,49 +90,47 @@ void regist(){
 }
 
 void loga(){
-	char pa,pa1;
-	FILE *fp;
+	char pa[10],pa1[10];
 	printf("Please enter password.\n");
-	scanf("%s",&pa)
+	scanf("%s",&pa);
 	getchar();
-	fp=fopen("administrator","r");
-	fread=(char,100,1,fp);
-	fclose(fp);
-	pa1=fp;
+	strcpy(pa1,"123");
 	if(strcmp(pa,pa1)==0){
 		printf("Verification passed.\n");
 		return;
 	}
 	else{
 		printf("Verification failed.Soon back menu.\n");
-		sleep(3);
+		Sleep(3000);
 		menu();
 	}
 }
 
 void saveaccount(account *p){
 	FILE *fp;
-	fp=fopen("account","ab");
+	fp=fopen("account.txt","ab");
 	if(fp==NULL){
 		printf("loading is failed");
 	}
-	fwrite(p,sizeof(p),1,fp);
+	fwrite(p,sizeof(account),1,fp);
 	fclose(fp);
 }
 
 void printaccount(){
+    loga();
 	system("cls");
 	account *head,*p;
 	head=loadaccount();
-	if(head==NULL){
+	if(head->next==NULL){
 		printf("No user exists.Soon back menu.\n");
-		sleep(3);
+		Sleep(3000);
 		menu();
 	}
-	p=head();
-	while(p!=NULL){
+	p=head;
+	while(p->next!=NULL){
 		printf("Username:%s \n",p->usrname);
 		printf("\n");
+        p=p->next;
 	}
 	printf("-------------------------------------------------\n");
 	printf("Press any key to back menu.\n");

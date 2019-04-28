@@ -2,7 +2,7 @@
 #define MENU_H
 
 void menu();
-void exit();
+void over();
 
 #endif
 

@@ -6,17 +6,16 @@ typedef struct BOOK{
 	char name[10];
 	char author[10];
 	char publisher[10];
-	char l[10];
+	int l;
 	char f[10];
 	struct BOOK *next;
 }book;
 
-book loadbook();
+book *loadbook();
 void findbook();
 void addbook();
 void debook();
 void printbook();
 void savebook(book *p);
-	
 
 #endif

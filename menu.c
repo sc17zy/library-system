@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h> 
+#include<conio.h>
 #include<string.h>
+#include "main.c"
 #include "book.h"
 #include "account.h"
 #include "borrowreturn.h"
@@ -45,19 +46,19 @@ void menu(){
 			break;
 			case '8': printaccount();
 			break;
-			case '9': exit();
+			case '9': over();
 			break;
-			default: printf("Invalid.Please press 1-7 key.\n");
+			default: printf("Invalid.Please press 1-9 key.\n");
 			break;
 		}
 	}
 }
 
-void exit(){
+void over(){
 	char i;
-	print("Sure to exit?\n");
-	print("Press 1 to confirm | Press 2 to back menu\n");
-	while(1){	
+	printf("Sure to exit?\n");
+	printf("Press 1 to confirm | Press 2 to back menu\n");
+	while(1){
 		i=getch();
 		if(i=='1'){
 			printf("Thanks for using.\n");
@@ -68,5 +69,6 @@ void exit(){
 		}
 		else{
 			printf("Invalid.Please press 1 or 2 key.\n");
-	}
+        }
+    }
 }

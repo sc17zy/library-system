@@ -7,7 +7,7 @@ typedef struct ACCOUNT{
 	struct ACCOUNT *next;
 }account;
 
-account loadaccount();
+account *loadaccount();
 void regist();
 void loga();
 void saveaccount(account *p);
